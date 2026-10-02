@@ -1,0 +1,60 @@
+2026-10-02 08:00:32 [main] INFO  e.e.d.o.OficioyaApplicationTests - Starting OficioyaApplicationTests using Java 25.0.4 with PID 13768 (started by samue in C:\Users\samue\OneDrive\Documentos\DOSW_lab7_AYALA_ARGALLE_CAICEDO_RUBIANO\oficioya)
+2026-10-02 08:00:32 [main] DEBUG e.e.d.o.OficioyaApplicationTests - Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-02 08:00:32 [main] INFO  e.e.d.o.OficioyaApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2026-10-02 08:00:34 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-02 08:00:34 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 33 ms. Found 0 JPA repository interfaces.
+2026-10-02 08:00:35 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-10-02 08:00:35 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:f3869324-1d77-41f1-b75b-b8702cc48224 user=SA
+2026-10-02 08:00:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-10-02 08:00:36 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-02 08:00:36 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-02 08:00:37 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-02 08:00:37 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:f3869324-1d77-41f1-b75b-b8702cc48224]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: F3869324-1D77-41F1-B75B-B8702CC48224/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-02 08:00:38 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-02 08:00:38 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-02 08:00:39 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-02 08:00:40 [main] INFO  e.e.d.o.OficioyaApplicationTests - Started OficioyaApplicationTests in 8.704 seconds (process running for 12.444)
+2026-10-02 08:00:41 [main] DEBUG e.e.d.oficioya.service.WorkerService - Buscando usuario con correo: carlos.perez@ejemplo.com
+2026-10-02 08:00:41 [main] INFO  e.e.d.oficioya.service.WorkerService - Usuario encontrado con correo: carlos.perez@ejemplo.com
+2026-10-02 08:00:41 [main] DEBUG e.e.d.oficioya.service.WorkerService - Buscando usuario con correo: noexiste@ejemplo.com
+2026-10-02 08:00:41 [main] INFO  e.e.d.oficioya.service.WorkerService - Usuario encontrado con correo: noexiste@ejemplo.com
+2026-10-02 08:00:41 [main] DEBUG e.e.d.oficioya.service.WorkerService - Buscando usuario con correo: carlos.perez@ejemplo.com
+2026-10-02 08:00:41 [main] INFO  e.e.d.oficioya.service.WorkerService - Usuario encontrado con correo: carlos.perez@ejemplo.com
+2026-10-02 08:00:41 [main] DEBUG e.e.d.oficioya.service.WorkerService - Buscando trabajador con id: 1
+2026-10-02 08:00:41 [main] INFO  e.e.d.oficioya.service.WorkerService - trabajador encontrado: 1
+2026-10-02 08:00:41 [main] DEBUG e.e.d.oficioya.service.WorkerService - Inactivando trabajador con id: 1
+2026-10-02 08:00:41 [main] INFO  e.e.d.oficioya.service.WorkerService - Trabajador inactivado exitosamente con id: 1
+2026-10-02 08:00:41 [main] DEBUG e.e.d.oficioya.service.WorkerService - Actualizando trabajador con id: 1
+2026-10-02 08:00:41 [main] DEBUG e.e.d.oficioya.service.WorkerService - Actualizando trabajador con id: 3
+2026-10-02 08:00:41 [main] DEBUG e.e.d.oficioya.service.WorkerService - Actualizando trabajador con id: 1
+2026-10-02 08:00:41 [main] INFO  e.e.d.oficioya.service.WorkerService - Trabajador actualizado exitosamente con id: 1
+2026-10-02 08:00:41 [main] DEBUG e.e.d.oficioya.service.WorkerService - Buscando trabajadores con zona: null y soloActivos: true
+2026-10-02 08:00:41 [main] INFO  e.e.d.oficioya.service.WorkerService - Trabajador 1 encontrado
+2026-10-02 08:00:41 [main] INFO  e.e.d.oficioya.service.WorkerService - Trabajador 2 encontrado
+2026-10-02 08:00:41 [main] WARN  e.e.d.oficioya.service.WorkerService - Trabajador 3 inactivo
+2026-10-02 08:00:41 [main] DEBUG e.e.d.oficioya.service.WorkerService - Buscando trabajador con id: 9999
+2026-10-02 08:00:41 [main] DEBUG e.e.d.oficioya.service.WorkerService - Registrando trabajador con correo: test@test.com
+2026-10-02 08:00:41 [main] DEBUG e.e.d.oficioya.service.WorkerService - Registrando trabajador con correo: null
+2026-10-02 08:00:41 [main] DEBUG e.e.d.oficioya.service.WorkerService - Registrando trabajador con correo: test@test.com
+2026-10-02 08:00:41 [main] DEBUG e.e.d.oficioya.service.WorkerService - Registrando trabajador con correo: test@test.com
+2026-10-02 08:00:41 [main] DEBUG e.e.d.oficioya.service.WorkerService - Registrando trabajador con correo: test@test.com
+2026-10-02 08:00:41 [main] DEBUG e.e.d.oficioya.service.WorkerService - Registrando trabajador con correo: maria.lopez@ejemplo.com
+2026-10-02 08:00:41 [main] INFO  e.e.d.oficioya.service.WorkerService - Trabajador creado exitosamente con id: 5
+2026-10-02 08:00:41 [main] DEBUG e.e.d.oficioya.service.WorkerService - Registrando trabajador con correo: nuevo@ejemplo.com
+2026-10-02 08:00:41 [main] INFO  e.e.d.oficioya.service.WorkerService - Trabajador creado exitosamente con id: 6
+2026-10-02 08:00:41 [main] DEBUG e.e.d.oficioya.service.WorkerService - Buscando trabajadores con zona: Usaquen y soloActivos: true
+2026-10-02 08:00:41 [main] WARN  e.e.d.oficioya.service.WorkerService - Trabajador 3 inactivo
+2026-10-02 08:00:41 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-02 08:00:41 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-10-02 08:00:41 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
