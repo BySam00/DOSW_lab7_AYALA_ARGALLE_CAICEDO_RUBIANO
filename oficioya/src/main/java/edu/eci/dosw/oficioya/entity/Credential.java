@@ -24,6 +24,18 @@ public class Credential {
     @Column(name = "expiration_date")
     private LocalDateTime expirationDate;
 
+    @OneToOne(optional = false)
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Credential() {
     }
 

@@ -25,12 +25,25 @@ public class Worker {
     @Column(name = "finished_jobs", nullable = false)
     private Integer finishedJobs = 0;
 
-    // true = Activo, false = Inactivo (regla: se crea Activo y nunca se elimina fisicamente)
+    // true = Activo, false = Inactivo (regla: se crea Activo y nunca se elimina
+    // fisicamente)
     @Column(nullable = false)
     private Boolean state = true;
 
     @Column(name = "creation_date", nullable = false, updatable = false)
     private LocalDateTime creationDate;
+
+    @OneToOne(optional = false)
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Worker() {
     }
