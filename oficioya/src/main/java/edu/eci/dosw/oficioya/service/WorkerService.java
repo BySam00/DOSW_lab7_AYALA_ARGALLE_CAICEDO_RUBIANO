@@ -8,8 +8,8 @@ import edu.eci.dosw.oficioya.exception.InvalidDataException;
 import edu.eci.dosw.oficioya.exception.ResourceNotFoundException;
 import edu.eci.dosw.oficioya.model.Disponibility;
 import edu.eci.dosw.oficioya.model.Job;
-import edu.eci.dosw.oficioya.model.User;
-import edu.eci.dosw.oficioya.model.Worker;
+import edu.eci.dosw.oficioya.model.UserModel;
+import edu.eci.dosw.oficioya.model.WorkerModel;
 import edu.eci.dosw.oficioya.model.WorkZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,8 +26,8 @@ import org.slf4j.LoggerFactory;
 @Service
 public class WorkerService {
 
-    private final Map<Integer, Worker> workers = new ConcurrentHashMap<>();
-    private final Map<String, User> usersByEmail = new ConcurrentHashMap<>();
+    private final Map<Integer, WorkerModel> workers = new ConcurrentHashMap<>();
+    private final Map<String, UserModel> usersByEmail = new ConcurrentHashMap<>();
     private final AtomicInteger idGenerator = new AtomicInteger(1);
     private static final Logger log = LoggerFactory.getLogger(WorkerService.class);
 
@@ -39,11 +39,11 @@ public class WorkerService {
         // Trabajador 1 (Activo) usando composición: User contiene datos personales y
         // Worker los laborales
         int idU1 = idGenerator.getAndIncrement();
-        User u1 = new User(idU1, "Carlos Perez", "carlos.perez@ejemplo.com", 300123456, "clave123", null);
+        UserModel u1 = new UserModel(idU1, "Carlos Perez", "carlos.perez@ejemplo.com", 300123456, "clave123", null);
         usersByEmail.put(u1.getCorreo().toLowerCase(), u1);
 
         int idW1 = 1;
-        Worker w1 = new Worker(idW1, u1, 50000, new Job("Plomero", true),
+        WorkerModel w1 = new WorkerModel(idW1, u1, 50000, new Job("Plomero", true),
                 new WorkZone(1, "Bogota", "Usaquen", "Cedritos"));
         w1.setState(true);
         w1.setFinishedJobs(12);
@@ -53,11 +53,11 @@ public class WorkerService {
 
         // Trabajador 2 (Activo)
         int idU2 = idGenerator.getAndIncrement();
-        User u2 = new User(idU2, "Ana Gomez", "ana.gomez@ejemplo.com", 310987654, "segura456", null);
+        UserModel u2 = new UserModel(idU2, "Ana Gomez", "ana.gomez@ejemplo.com", 310987654, "segura456", null);
         usersByEmail.put(u2.getCorreo().toLowerCase(), u2);
 
         int idW2 = 2;
-        Worker w2 = new Worker(idW2, u2, 65000, new Job("Electricista", true),
+        WorkerModel w2 = new WorkerModel(idW2, u2, 65000, new Job("Electricista", true),
                 new WorkZone(2, "Bogota", "Chapinero", "Antiguo Country"));
         w2.setState(true);
         w2.setFinishedJobs(25);
@@ -67,11 +67,11 @@ public class WorkerService {
 
         // Trabajador 3 (Inactivo para pruebas de regla de negocio)
         int idU3 = idGenerator.getAndIncrement();
-        User u3 = new User(idU3, "Pedro Ramirez", "pedro.ramirez@ejemplo.com", 320112233, "inactivo789", null);
+        UserModel u3 = new UserModel(idU3, "Pedro Ramirez", "pedro.ramirez@ejemplo.com", 320112233, "inactivo789", null);
         usersByEmail.put(u3.getCorreo().toLowerCase(), u3);
 
         int idW3 = 3;
-        Worker w3 = new Worker(idW3, u3, 40000, new Job("Carpintero", false),
+        WorkerModel w3 = new WorkerModel(idW3, u3, 40000, new Job("Carpintero", false),
                 new WorkZone(3, "Bogota", "Suba", "La Colina"));
         w3.setState(false); // Inactivo
         w3.setFinishedJobs(5);
@@ -80,7 +80,7 @@ public class WorkerService {
 
         // Usuario contratante previo (sin Worker todavía)
         int idU4 = idGenerator.getAndIncrement();
-        User u4 = new User(idU4, "Maria Lopez", "maria.lopez@ejemplo.com", 315443322, "contratante2026", null);
+        UserModel u4 = new UserModel(idU4, "Maria Lopez", "maria.lopez@ejemplo.com", 315443322, "contratante2026", null);
         usersByEmail.put(u4.getCorreo().toLowerCase(), u4);
     }
 
@@ -121,7 +121,7 @@ public class WorkerService {
      */
     public WorkerResponseDTO findById(int id) {
         log.debug("Buscando trabajador con id: {}", id);
-        Worker worker = workers.get(id);
+        WorkerModel worker = workers.get(id);
         if (worker == null) {
             throw new ResourceNotFoundException("Trabajador con id " + id + " no encontrado.");
         }
@@ -146,10 +146,10 @@ public class WorkerService {
         validateRegistrationFields(dto);
 
         String email = dto.getCorreo().trim().toLowerCase();
-        User existingUser = usersByEmail.get(email);
+        UserModel existingUser = usersByEmail.get(email);
 
-        User user;
-        Worker worker;
+        UserModel user;
+        WorkerModel worker;
 
         if (existingUser != null) {
             // Reutilizamos el User existente
@@ -164,7 +164,7 @@ public class WorkerService {
             if (user.getWorker() != null) {
                 worker = user.getWorker();
             } else {
-                worker = new Worker();
+                worker = new WorkerModel();
                 worker.setId(idGenerator.getAndIncrement());
                 worker.setUser(user);
                 user.setWorker(worker);
@@ -172,11 +172,11 @@ public class WorkerService {
         } else {
             // Usuario nuevo
             int newUserId = idGenerator.getAndIncrement();
-            user = new User(newUserId, dto.getNombre(), email, dto.getTelefono(), dto.getPasswd(), dto.getFoto());
+            user = new UserModel(newUserId, dto.getNombre(), email, dto.getTelefono(), dto.getPasswd(), dto.getFoto());
             usersByEmail.put(email, user);
 
             int newWorkerId = idGenerator.getAndIncrement();
-            worker = new Worker();
+            worker = new WorkerModel();
             worker.setId(newWorkerId);
             worker.setUser(user);
             user.setWorker(worker);
@@ -209,7 +209,7 @@ public class WorkerService {
      */
     public WorkerResponseDTO update(int id, WorkerUpdateDTO dto) {
         log.debug("Actualizando trabajador con id: {}", id);
-        Worker worker = workers.get(id);
+        WorkerModel worker = workers.get(id);
         if (worker == null) {
             throw new ResourceNotFoundException("Trabajador con id " + id + " no encontrado.");
         }
@@ -261,7 +261,7 @@ public class WorkerService {
      */
     public WorkerResponseDTO inactivate(int id) {
         log.debug("Inactivando trabajador con id: {}", id);
-        Worker worker = workers.get(id);
+        WorkerModel worker = workers.get(id);
         if (worker == null) {
             throw new ResourceNotFoundException("Trabajador con id " + id + " no encontrado.");
         }
@@ -274,7 +274,7 @@ public class WorkerService {
     /**
      * Buscar un usuario por correo para autenticación.
      */
-    public Optional<User> findUserByEmail(String email) {
+    public Optional<UserModel> findUserByEmail(String email) {
         log.debug("Buscando usuario con correo: {}", email);
         if (email == null)
             return Optional.empty();
@@ -304,7 +304,7 @@ public class WorkerService {
         }
     }
 
-    public WorkerResponseDTO mapToResponseDTO(Worker worker) {
+    public WorkerResponseDTO mapToResponseDTO(WorkerModel worker) {
         WorkerResponseDTO dto = new WorkerResponseDTO();
         dto.setId(worker.getId());
         if (worker.getUser() != null) {

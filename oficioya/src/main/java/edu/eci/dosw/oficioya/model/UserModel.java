@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
+public class UserModel {
     private int id;
     private String nombre;
     private URL foto;
@@ -13,12 +13,12 @@ public class User {
     private String passwd;
 
     private List<Notification> notifications = new ArrayList<>();
-    private Worker worker; // Composición: un usuario puede tener un perfil de trabajador asociado
+    private WorkerModel worker; // Composición: un usuario puede tener un perfil de trabajador asociado
 
-    public User() {
+    public UserModel() {
     }
 
-    public User(int id, String nombre, String correo, int telefono, String passwd, URL foto) {
+    public UserModel(int id, String nombre, String correo, int telefono, String passwd, URL foto) {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
@@ -83,11 +83,11 @@ public class User {
         this.notifications = notifications;
     }
 
-    public Worker getWorker() {
+    public WorkerModel getWorker() {
         return worker;
     }
 
-    public void setWorker(Worker worker) {
+    public void setWorker(WorkerModel worker) {
         this.worker = worker;
     }
 }

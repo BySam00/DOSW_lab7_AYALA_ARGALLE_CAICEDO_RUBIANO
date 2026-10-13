@@ -4,9 +4,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Worker {
+public class WorkerModel {
     private int id;
-    private User user; // Composición: Worker contiene la referencia a User
+    private UserModel user; // Composición: Worker contiene la referencia a User
     private int rate;
     private ArrayList<Job> secondaryJobs = new ArrayList<>();
     private int salary;
@@ -20,12 +20,12 @@ public class Worker {
     private List<Disponibility> disponibilities = new ArrayList<>();
 
     // Constructor por defecto
-    public Worker() {
+    public WorkerModel() {
         this.state = true; // Por defecto activo
     }
 
     // Constructor por composición directa con User
-    public Worker(int id, User user, int rate, Job principalJob, WorkZone workZone) {
+    public WorkerModel(int id, UserModel user, int rate, Job principalJob, WorkZone workZone) {
         this.id = id;
         this.user = user;
         if (user != null) {
@@ -38,27 +38,27 @@ public class Worker {
     }
 
     // Sobrecarga con Long para compatibilidad
-    public Worker(Long id, User user, int rate, Job principalJob, WorkZone workZone) {
+    public WorkerModel(Long id, UserModel user, int rate, Job principalJob, WorkZone workZone) {
         this(id != null ? id.intValue() : 0, user, rate, principalJob, workZone);
     }
 
     // Constructor básico para datos iniciales de simulación
-    public Worker(int id, String nombre, String correo) {
+    public WorkerModel(int id, String nombre, String correo) {
         this.id = id;
-        this.user = new User(id, nombre, correo, 0, null, null);
+        this.user = new UserModel(id, nombre, correo, 0, null, null);
         this.user.setWorker(this);
         this.state = true;
     }
 
-    public Worker(Long id, String nombre, String correo) {
+    public WorkerModel(Long id, String nombre, String correo) {
         this(id != null ? id.intValue() : 0, nombre, correo);
     }
 
     // Constructor completo con datos de usuario y trabajador
-    public Worker(int id, String nombre, String correo, int telefono, String passwd, URL foto,
+    public WorkerModel(int id, String nombre, String correo, int telefono, String passwd, URL foto,
             int rate, Job principalJob, WorkZone workZone) {
         this.id = id;
-        this.user = new User(id, nombre, correo, telefono, passwd, foto);
+        this.user = new UserModel(id, nombre, correo, telefono, passwd, foto);
         this.user.setWorker(this);
         this.rate = rate;
         this.PrincipalJob = principalJob;
@@ -74,11 +74,11 @@ public class Worker {
         this.id = id;
     }
 
-    public User getUser() {
+    public UserModel getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserModel user) {
         this.user = user;
         if (user != null && user.getWorker() != this) {
             user.setWorker(this);

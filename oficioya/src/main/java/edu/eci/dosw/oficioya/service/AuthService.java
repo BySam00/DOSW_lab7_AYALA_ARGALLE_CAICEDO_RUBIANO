@@ -3,7 +3,7 @@ package edu.eci.dosw.oficioya.service;
 import edu.eci.dosw.oficioya.dto.LoginRequestDTO;
 import edu.eci.dosw.oficioya.dto.LoginResponseDTO;
 import edu.eci.dosw.oficioya.exception.InvalidDataException;
-import edu.eci.dosw.oficioya.model.User;
+import edu.eci.dosw.oficioya.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +33,9 @@ public class AuthService {
             throw new InvalidDataException("La contraseña es obligatoria.");
         }
 
-        Optional<User> userOpt = workerService.findUserByEmail(request.getCorreo());
+        Optional<UserModel> userOpt = workerService.findUserByEmail(request.getCorreo());
         if (userOpt.isPresent()) {
-            User user = userOpt.get();
+            UserModel user = userOpt.get();
             if (user.getPasswd() != null && user.getPasswd().equals(request.getPasswd())) {
                 return LoginResponseDTO.success(user.getId(), user.getNombre(), user.getCorreo());
             }

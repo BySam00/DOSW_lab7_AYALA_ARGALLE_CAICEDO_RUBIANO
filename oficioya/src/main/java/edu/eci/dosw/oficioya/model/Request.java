@@ -13,7 +13,7 @@ public class Request {
     private Timer timer;
     private String address;
 
-    private User employer;
-    private Worker worker;
+    private UserModel employer;
+    private WorkerModel worker;
     private List<Disponibility> workTime = new ArrayList<>();
 }
