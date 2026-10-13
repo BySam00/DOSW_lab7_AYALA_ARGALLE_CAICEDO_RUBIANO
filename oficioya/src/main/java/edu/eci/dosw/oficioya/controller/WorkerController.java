@@ -112,4 +112,39 @@ public class WorkerController {
         WorkerResponseDTO inactivated = workerService.inactivate(id);
         return ResponseEntity.ok(inactivated);
     }
+
+    // ==========================================
+    // Endpoints directos con WorkerModel (Paso 11)
+    // ==========================================
+
+    @PostMapping("/perfil")
+    @Operation(summary = "Crear perfil de trabajador", description = "Asocia un perfil laboral a un usuario existente.")
+    public ResponseEntity<edu.eci.dosw.oficioya.model.WorkerModel> guardar(@RequestBody edu.eci.dosw.oficioya.model.WorkerModel model) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(workerService.crear(model));
+    }
+
+    @GetMapping("/perfil")
+    @Operation(summary = "Listar trabajadores activos", description = "Obtiene los perfiles laborales activos en PostgreSQL.")
+    public ResponseEntity<List<edu.eci.dosw.oficioya.model.WorkerModel>> listar() {
+        return ResponseEntity.ok(workerService.listarActivos());
+    }
+
+    @GetMapping("/perfil/{id}")
+    @Operation(summary = "Buscar trabajador por ID", description = "Consulta un trabajador por su ID usando el servicio JPA.")
+    public ResponseEntity<edu.eci.dosw.oficioya.model.WorkerModel> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(workerService.buscarPorId(id));
+    }
+
+    @PutMapping("/perfil/{id}")
+    @Operation(summary = "Actualizar trabajador por modelo", description = "Actualiza los datos laborales en PostgreSQL.")
+    public ResponseEntity<edu.eci.dosw.oficioya.model.WorkerModel> actualizar(@PathVariable Long id, @RequestBody edu.eci.dosw.oficioya.model.WorkerModel model) {
+        return ResponseEntity.ok(workerService.actualizar(id, model));
+    }
+
+    @DeleteMapping("/perfil/{id}")
+    @Operation(summary = "Inactivar trabajador en BD", description = "Inactiva al trabajador en la base de datos.")
+    public ResponseEntity<Void> inactivar(@PathVariable Long id) {
+        workerService.inactivar(id);
+        return ResponseEntity.noContent().build();
+    }
 }
