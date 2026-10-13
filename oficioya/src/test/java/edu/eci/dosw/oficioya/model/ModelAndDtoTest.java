@@ -18,7 +18,7 @@ class ModelAndDtoTest {
     @Test
     void testUserAndWorkerModels() throws MalformedURLException {
         URL url = URI.create("http://example.com/foto.jpg").toURL();
-        User u = new User(10, "Test User", "test@user.com", 300111223, "pass", url);
+        UserModel u = new UserModel(10, "Test User", "test@user.com", 300111223, "pass", url);
         assertEquals(10, u.getId());
         assertEquals("Test User", u.getNombre());
         assertEquals("test@user.com", u.getCorreo());
@@ -35,7 +35,7 @@ class ModelAndDtoTest {
         u.setNotifications(new ArrayList<>());
         assertNotNull(u.getNotifications());
 
-        Worker w = new Worker();
+        WorkerModel w = new WorkerModel();
         w.setId(1);
         w.setUser(u);
         u.setWorker(w);
@@ -76,7 +76,7 @@ class ModelAndDtoTest {
         assertNotNull(w.getDisponibilities());
         assertNotNull(w.getWorkZone());
 
-        Worker wSimple = new Worker(2, "Simple", "simple@mail.com");
+        WorkerModel wSimple = new WorkerModel(2, "Simple", "simple@mail.com");
         assertEquals(2, wSimple.getId());
         assertEquals("Simple", wSimple.getNombre());
         assertEquals("simple@mail.com", wSimple.getCorreo());
