@@ -62,6 +62,10 @@ public class Worker {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Integer getRate() {
         return rate;
     }
