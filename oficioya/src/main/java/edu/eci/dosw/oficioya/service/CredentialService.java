@@ -2,6 +2,8 @@ package edu.eci.dosw.oficioya.service;
 
 import edu.eci.dosw.oficioya.entity.Credential;
 import edu.eci.dosw.oficioya.entity.User;
+import edu.eci.dosw.oficioya.mapper.CredentialMapper;
+import edu.eci.dosw.oficioya.model.CredentialModel;
 import edu.eci.dosw.oficioya.repository.CredentialRepository;
 import edu.eci.dosw.oficioya.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,16 +20,19 @@ public class CredentialService {
     private final CredentialRepository credentialRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final CredentialMapper credentialMapper;
 
     public CredentialService(CredentialRepository credentialRepository,
                              UserRepository userRepository,
-                             PasswordEncoder passwordEncoder) {
+                             PasswordEncoder passwordEncoder,
+                             CredentialMapper credentialMapper) {
         this.credentialRepository = credentialRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.credentialMapper = credentialMapper;
     }
 
-    public Credential registrar(Long userId, String rawPassword) {
+    public CredentialModel registrar(Long userId, String rawPassword) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NoSuchElementException("Usuario no encontrado: " + userId));
         if (credentialRepository.findByUserId(userId).isPresent()) {
@@ -35,7 +40,7 @@ public class CredentialService {
         }
         Credential credential = new Credential(passwordEncoder.encode(rawPassword), null);
         credential.setUser(user);
-        return credentialRepository.save(credential);
+        return credentialMapper.toModel(credentialRepository.save(credential));
     }
 
     @Transactional(readOnly = true)
@@ -46,7 +51,7 @@ public class CredentialService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<Credential> buscarPorUsuarioId(Long userId) {
-        return credentialRepository.findByUserId(userId);
+    public Optional<CredentialModel> buscarPorUsuarioId(Long userId) {
+        return credentialRepository.findByUserId(userId).map(credentialMapper::toModel);
     }
 }
